@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Pigmento — mezclador de color para pintores</title>
+<meta name="description" content="Pigmento: tocá una foto de referencia y obtené la mezcla de tus pigmentos reales para lograr ese color.">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#141310">
+<meta name="background-color" content="#141310">
+
+<!-- iOS PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pigmento">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <img class="brand-mark" src="assets/logo-cropped.png" alt="Pigmento">
+      <div>
+        <h1>Pigmento</h1>
+        <p class="tagline">De una foto de referencia a la mezcla exacta de tus pigmentos</p>
+      </div>
+    </div>
+    <p class="top-note">Cálculo por Kubelka–Munk (constante única). Estimación práctica para orientar la mezcla, no una fórmula de laboratorio. Todo se procesa en tu dispositivo — ninguna foto se envía a un servidor.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- LEFT: pigment library -->
+    <section class="col-palette">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">01 — Tu paleta</span>
+            <h2>Pigmentos con los que contás</h2>
+          </div>
+        </div>
+        <p class="sub">Elegí una paleta de referencia clásica, o armá la tuya con lo que tenés en el estudio.</p>
+
+        <div class="preset-row">
+          <select id="preset-select"></select>
+        </div>
+        <p class="preset-desc" id="preset-desc"></p>
+
+        <div id="custom-editor">
+          <div class="tabs" role="tablist">
+            <button class="tab-btn active" data-tab="buscar" type="button">Buscar marca</button>
+            <button class="tab-btn" data-tab="foto" type="button">Foto automática</button>
+            <button class="tab-btn" data-tab="manual" type="button">Manual</button>
+          </div>
+
+          <div class="tab-panel active" id="tab-buscar">
+            <label for="buscar-marca">Marca</label>
+            <select id="buscar-marca"></select>
+            <label for="buscar-pigmento">Pigmento</label>
+            <select id="buscar-pigmento"></select>
+            <div class="preview-row">
+              <div id="buscar-preview" class="chip-sm"></div>
+              <span class="hint" id="buscar-info">Estimación de color de referencia para este pigmento comercial.</span>
+            </div>
+            <p class="hint">Esta demo usa una tabla local de referencia (sin conexión a internet). No reemplaza la ficha técnica real del fabricante.</p>
+            <button class="primary" id="buscar-add" type="button">Agregar a la paleta</button>
+          </div>
+
+          <div class="tab-panel" id="tab-foto">
+            <label for="foto-nombre">Nombre del pigmento</label>
+            <input type="text" id="foto-nombre" placeholder="ej. Azul ultramar" autocomplete="off">
+            <label for="foto-marca">Marca (opcional)</label>
+            <input type="text" id="foto-marca" placeholder="ej. Winsor & Newton" autocomplete="off">
+            <label>Foto del pomo sobre hoja blanca, bien iluminada</label>
+            <div class="file-row">
+              <label class="file-btn">
+                Elegir de la fototeca
+                <input type="file" id="foto-file" accept="image/*">
+              </label>
+              <label class="file-btn ghost">
+                Usar cámara
+                <input type="file" id="foto-file-camera" accept="image/*" capture="environment">
+              </label>
+            </div>
+            <canvas id="foto-canvas" width="360" height="240"></canvas>
+            <p class="hint" id="foto-status">Subí la foto: el color se extrae automáticamente detectando el área de pintura sobre el blanco de la hoja.</p>
+            <div class="row">
+              <div>
+                <label>Blanco detectado</label>
+                <div class="preview-row"><div id="foto-white-chip" class="chip-sm"></div><span id="foto-white-txt" class="hint">—</span></div>
+              </div>
+              <div>
+                <label>Color extraído</label>
+                <div class="preview-row"><div id="foto-sample-chip" class="chip-sm"></div><span id="foto-sample-txt" class="hint">—</span></div>
+              </div>
+            </div>
+            <div class="mode-row">
+              <button class="ghost" id="foto-fix-white" type="button">Corregir blanco (tocar la foto)</button>
+              <button class="ghost" id="foto-fix-color" type="button">Corregir color (tocar la foto)</button>
+            </div>
+            <button class="primary" id="foto-add" type="button">Agregar a la paleta</button>
+          </div>
+
+          <div class="tab-panel" id="tab-manual">
+            <label for="manual-nombre">Nombre del pigmento</label>
+            <input type="text" id="manual-nombre" placeholder="ej. Ocre amarillo" autocomplete="off">
+            <label for="manual-marca">Marca (opcional)</label>
+            <input type="text" id="manual-marca" placeholder="ej. Rembrandt" autocomplete="off">
+            <label for="manual-color">Color</label>
+            <input type="color" id="manual-color" value="#c99a3f">
+            <button class="primary" id="manual-add" type="button">Agregar a la paleta</button>
+          </div>
+        </div>
+
+        <div id="lib-grid" class="lib-grid"></div>
+        <div id="lib-empty" class="empty">Todavía no agregaste pigmentos.</div>
+      </div>
+    </section>
+
+    <!-- RIGHT: target photo + picks -->
+    <section class="col-target">
+      <div class="panel">
+        <span class="eyebrow">02 — Foto de referencia</span>
+        <h2>Tocá la foto para elegir un color</h2>
+        <p class="sub">Subí o fotografiá tu referencia. Cada toque con el gotero agrega, abajo, el color elegido junto con los pigmentos que necesitás para lograrlo.</p>
+
+        <div class="file-row">
+          <label class="file-btn">
+            Elegir de la fototeca
+            <input type="file" id="target-file" accept="image/*">
+          </label>
+          <label class="file-btn ghost">
+            Usar cámara
+            <input type="file" id="target-file-camera" accept="image/*" capture="environment">
+          </label>
+        </div>
+
+        <div class="target-photo-wrap" id="target-photo-wrap">
+          <canvas id="target-canvas" width="900" height="560"></canvas>
+          <div class="loupe" id="loupe" hidden></div>
+          <p class="empty-overlay" id="target-empty">Subí una foto para empezar a tocar colores</p>
+        </div>
+
+        <div class="crosshair-note">
+          <div class="chip-sm" id="cursor-preview"></div>
+          <span class="hint">Último punto tocado: <b id="cursor-hex">—</b></span>
+        </div>
+
+        <details class="manual-target">
+          <summary>o elegí un color sin foto</summary>
+          <div class="manual-target-row">
+            <input type="color" id="target-color-input" value="#7a5230">
+            <button class="ghost" id="manual-target-add" type="button">Agregar este color</button>
+          </div>
+        </details>
+
+        <div class="picks-head">
+          <h3>Colores buscados en esta sesión</h3>
+          <button class="ghost" id="recalc-all" type="button" hidden>Recalcular todo</button>
+        </div>
+        <div id="picks-list"></div>
+        <div class="pick-empty" id="picks-empty">Todavía no tocaste ningún color en la foto.</div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="disclaimer">
+    <b>Sobre el modelo:</b> la mezcla se calcula con Kubelka–Munk de constante única — convierte cada color a una relación absorción/dispersión (K/S) por canal, promedia esas relaciones según la proporción de cada pigmento, y vuelve a convertir a color. Es una <b>estimación práctica</b> para orientar la mezcla en el estudio, no una fórmula exacta de laboratorio: no contempla opacidad, granulación ni fuerza tintórea real de cada pigmento. Las paletas de referencia (Zorn, tierras, etc.) usan colores aproximados con fines ilustrativos. Todo el procesamiento ocurre en tu dispositivo.
+  </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
