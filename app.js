@@ -3,21 +3,47 @@
 /* ============================================================
    Datos: marcas/pigmentos de referencia y paletas predefinidas
    ============================================================ */
+// Winsor & Newton: valores hex tomados de una carta de color escaneada de la línea
+// Artists' Oil Colour (125 tonos). El resto de las marcas usa aproximaciones estándar
+// de pigmento, ya que no encontramos cartas escaneadas equivalentes de acceso público.
 const BRAND_DB = {
   "Winsor & Newton": {
-    "Azul ultramar": "#1B3F8B", "Amarillo de cadmio medio": "#F6C21B", "Rojo de cadmio medio": "#E23A2E",
-    "Tierra siena tostada": "#8A4A2B", "Blanco de titanio": "#F5F3EC", "Negro marfil": "#231F1C",
-    "Verde ftalo": "#0B5E4B", "Ocre amarillo": "#C9922E", "Alizarina carmesí": "#7C1F2E"
+    "Winsor Lemon": "#FBEE34", "Cadmium Yellow Pale": "#FCD700", "Cadmium Yellow": "#ED9A22",
+    "Winsor Yellow Deep": "#EEA121", "Naples Yellow": "#F8D877", "Cadmium Orange": "#DD6B26",
+    "Winsor Orange": "#E08A2A", "Cadmium Red": "#D31F35", "Winsor Red": "#CC2027",
+    "Scarlet Lake": "#D32027", "Alizarin Crimson": "#AC1F25", "Permanent Rose": "#CA1F4B",
+    "Quinacridone Magenta": "#B4469A", "Permanent Magenta": "#901D58", "Winsor Violet (Dioxazine)": "#612E81",
+    "Ultramarine Violet": "#7D559A", "French Ultramarine": "#054F96", "Winsor Blue (Red Shade)": "#035797",
+    "Cobalt Blue": "#006DB4", "Cerulean Blue": "#4BA7C8", "Prussian Blue": "#233C78",
+    "Viridian": "#1E9A5E", "Winsor Green (Phthalo)": "#007F4E", "Sap Green": "#236533",
+    "Terre Verte": "#A3C08B", "Yellow Ochre": "#C18F32", "Raw Sienna": "#C9822A",
+    "Burnt Sienna": "#BB3726", "Light Red": "#89351D", "Indian Red": "#AD452F",
+    "Burnt Umber": "#633C16", "Raw Umber": "#523420", "Payne's Gray": "#404348",
+    "Ivory Black": "#0C0B0A", "Mars Black": "#161617", "Titanium White": "#F7F5EE"
   },
   "Rembrandt": {
-    "Azul ultramar": "#22418E", "Amarillo cadmio claro": "#F9CE2B", "Rojo cadmio oscuro": "#C7301F",
-    "Siena tostada": "#82461F", "Blanco titanio": "#F7F4EC", "Negro marfil": "#1F1B18",
-    "Verde esmeralda": "#0F6B4C", "Ocre amarillo": "#C68F30", "Tierra roja": "#9C4430"
+    "Amarillo cadmio claro": "#F9CE2B", "Amarillo cadmio medio": "#F2B01D", "Amarillo ocre": "#C68F30",
+    "Naranja de cadmio": "#DE7226", "Rojo cadmio medio": "#D42A2E", "Rojo cadmio oscuro": "#C7301F",
+    "Carmín de alizarina": "#A81F2A", "Violeta dioxazina": "#5A2D7C", "Azul ultramar": "#22418E",
+    "Azul cobalto": "#0568A8", "Azul ftalo": "#123E7A", "Verde esmeralda": "#0F6B4C",
+    "Tierra siena tostada": "#82461F", "Tierra siena natural": "#B3742A", "Sombra tostada": "#5A3A22",
+    "Tierra roja": "#9C4430", "Gris de Payne": "#3E434B", "Negro marfil": "#1F1B18",
+    "Blanco titanio": "#F7F4EC"
   },
   "Golden (acrílico)": {
-    "Azul ftalo": "#123E7A", "Amarillo cadmio medio": "#F3BE20", "Rojo naftol": "#C62A2A",
-    "Siena tostada": "#8B4B2A", "Blanco titanio": "#F6F4ED", "Negro marte": "#211D1A",
-    "Verde ftalo": "#0A5E4D", "Amarillo ocre": "#C4902E"
+    "Amarillo cadmio claro": "#F6CF2A", "Amarillo cadmio medio": "#F3BE20", "Amarillo ocre": "#C4902E",
+    "Naranja pirrol": "#DE5A22", "Rojo naftol": "#C62A2A", "Rojo cadmio medio": "#CE2A2E",
+    "Quinacridona magenta": "#9C2A63", "Violeta dioxazina": "#4B2568", "Azul ftalo": "#123E7A",
+    "Azul ultramar": "#22418E", "Verde ftalo": "#0A5E4D", "Verde óxido de cromo": "#4F6B3A",
+    "Siena tostada": "#8B4B2A", "Sombra tostada": "#5A3A22", "Negro marte": "#211D1A",
+    "Blanco titanio": "#F6F4ED"
+  },
+  "Sennelier (óleo)": {
+    "Amarillo limón": "#F5E637", "Amarillo cadmio": "#F0A61E", "Ocre amarillo": "#C8933A",
+    "Rojo cadmio": "#D2262A", "Laca de granza rosa": "#C43159", "Violeta cobalto": "#7B4D96",
+    "Azul ultramar": "#264C93", "Azul cerúleo": "#3F91B8", "Verde vejiga": "#376B3E",
+    "Tierra verde": "#7C9165", "Siena tostada": "#8B4726", "Sombra natural": "#6E5A3C",
+    "Negro marfil": "#221D1A", "Blanco de plata": "#F5F2E9"
   }
 };
 
