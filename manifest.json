@@ -1,13 +1,13 @@
 {
-  "name": "Pigmento — mezclador de color",
-  "short_name": "Pigmento",
+  "name": "PIGMENT — mezclador de color",
+  "short_name": "PIGMENT",
   "description": "Tocá una foto de referencia y obtené la mezcla de tus pigmentos reales para lograr ese color.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#141310",
-  "theme_color": "#141310",
+  "background_color": "#131313",
+  "theme_color": "#131313",
   "icons": [
     { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
