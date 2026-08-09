@@ -2,7 +2,7 @@
 // Cachea la interfaz y el motor de mezcla para que la app funcione sin conexión.
 // No hay backend ni llamadas de red propias: todo el cálculo corre en el dispositivo.
 
-const CACHE_NAME = 'pigmento-cache-v1';
+const CACHE_NAME = 'pigmento-cache-v2';
 const CORE_ASSETS = [
   './',
   './index.html',
