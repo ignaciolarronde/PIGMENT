@@ -75,6 +75,7 @@ header.top{
   padding:22px 20px 24px;
 }
 .col-palette .panel + .panel{margin-top:20px;}
+.col-target .panel + .panel{margin-top:20px;}
 .panel-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:4px; gap:12px; flex-wrap:wrap;}
 .eyebrow{font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint);}
 .panel h2{font-size:19px; margin-top:3px; color:var(--ink);}
